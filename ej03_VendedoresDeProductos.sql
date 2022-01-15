@@ -275,7 +275,7 @@ select dv.id_producto, avg(dv.cantidad) as promedioUnidadesVendidas
 from detalle_venta dv
 group by dv.id_producto;
 
--- 6
+-- 6 con "view"
 create view ventasPorVendedor
 as
 	select v.id_vendedor, count(*) as cantidadVentas
@@ -286,6 +286,11 @@ select vv.id_vendedor as vendedorConMasVentas from ventasPorVendedor vv
 where vv.cantidadVentas = (
 	select max(v.cantidadVentas) from ventasPorVendedor v
 );
+-- 6 con "with"
+WITH masventas as(
+select Id_vendedor, count(*)as numero from venta  group by Id_vendedor order by numero desc
+)
+select Id_vendedor from masventas limit 1;
 
 -- 7
 select dv.id_producto
