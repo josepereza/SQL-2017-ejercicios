@@ -292,6 +292,10 @@ select Id_vendedor, count(*)as numero from venta  group by Id_vendedor order by 
 )
 select Id_vendedor from masventas limit 1;
 
+-- 6 con Subconsulta o consulta anidada
+select Id_vendedor from (select Id_vendedor, count(*)as numero from venta 
+ group by Id_vendedor order by numero desc)as mvendedor limit 1;
+ 
 -- 7
 select dv.id_producto
 from detalle_venta dv
